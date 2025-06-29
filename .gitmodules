@@ -1,0 +1,3 @@
+[submodule "brevly-server"]
+	path = brevly-server
+	url = https://github.com/devnunes/brevly-server.git
