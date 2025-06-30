@@ -1,3 +1,6 @@
 [submodule "brevly-server"]
 	path = brevly-server
 	url = https://github.com/devnunes/brevly-server.git
+[submodule "brevly-web"]
+	path = brevly-web
+	url = git@github.com:devnunes/brevly-web.git
