@@ -1,0 +1,42 @@
+name: brevly
+
+services:
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - brevly-network
+  database:
+    image: bitnami/postgresql:latest
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=brevly
+    volumes:
+      - brevly-db:/var/lib/postgresql/data
+      - './docker:/docker-entrypoint-initdb.d'
+
+  web:
+    build:
+      context: ./brevly-web/
+      dockerfile: Dockerfile.nginx
+    networks:
+      - brevly-network
+
+  server:
+    build:
+      context: ./brevly-server/
+      dockerfile: Dockerfile.nginx
+    networks:
+      - brevly-network
+    
+volumes:
+  brevly-db:
+
+networks:
+  brevly-network:
+    driver: bridge
